@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="text-align: center;" class="table_page">
+
+    {% if payload %}
+    <h2 class="bolded_header">Jobs found:</h2>
+    <table id="job_results_table">
+        <tr class="bolded_header">
+            <td>Date posted</td>
+            <td>Title</td>
+            <td>Company</td>
+            <td>Location</td>
+            <td>Seniority</td>
+            <td>Remote</td>
+            <td>Annual Salary</td>
+            <td>Link</td>
+        </tr>
+
+            {% for job in payload %}
+                
+                <tr id="job_row">
+                    <td>{{job['date_posted']}}</td>
+                    <td><a class="semi_bolded">{{job['job_title']}}</a></td>
+                    <td><a class="semi_bolded">{{job['company_object']['name']}}</a></td>
+                    <td>{{job['location']}}</td>
+                    <td>{{job['seniority']}}</td>
+                    {% if job['remote'] == True %}
+                        <td>&#9989;</td>
+                    {% else %}
+                        <td>&#x274C;</td>
+                    {% endif %}
+                    {% if job['min_annual_salary_usd'] == None and job['max_annual_salary_usd'] == None %}
+                        <td>Not available</td>
+                    {% elif job['min_annual_salary_usd'] == None %}
+                        <td>Up to {{job['max_annual_salary_usd']}}$</td>
+                    {% elif job['max_annual_salary_usd'] == None %}
+                        <td>Starting from {{job['min_annual_salary_usd']}}$</td>
+                    {% else %}
+                        <td>{{job['min_annual_salary_usd']}}$ - {{job['max_annual_salary_usd']}}$</td>
+                    {% endif %}
+                    <td><button class="buttons" onclick="window.open('{{ job['url'] }}', '_blank'); return false;">Apply</button></td>
+                </tr>
+            {% endfor %}
+    </table>
+    {% else %}
+
+    <h2>Find Jobs</h2>
+
+    <p>No jobs were found, please try again with a different query</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

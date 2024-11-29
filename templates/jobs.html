@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="text-align: center;" class="table_page">
+
+    {% if 'user' in session %}
+
+    <h2>Find Jobs:</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <table id="job_prefs_table">
+        <tr>
+            <td>
+            <label for="free_text"><b>Job title:</b></label><br/>
+                <input type="text" id="free_text" name="free_text">
+            </td>
+            <td>
+            <label for="country"><b>Country:</b></label><br/>
+            <select name="country" id="country">
+            {% if countries %}
+                {% for code, country in countries.items() %}
+                    <option value="{{code}}">{{ country }}</option>
+                {% endfor %}
+            {% else %}
+                    <option value="US">US</option>
+            {% endif %}
+            </select><br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            <label for="posted_since"><b>Posted since:</b></label><br/>
+                <select name="posted_since" id="posted_since">
+                    <optgroup label="Fresh">
+                        <option value="1">Today</option>
+                        <option value="3">Last 3 days</option>
+                        <option value="5">Last 5 days</option>
+                    </optgroup>
+                    <optgroup label="Older">
+                        <option value="7">Last week</option>
+                        <option value="14">Last 2 weeks</option>
+                        <option value="30">Last month</option>
+                        <option value="90">Last 3 months</option>
+                    </optgroup>
+                </select>
+            </td>
+            <td>
+                <label for="work_model"><b>Working model:</b></label><br/>
+                <select name="work_model" id="work_model">
+                    <option value="all_models">Every type</option>
+                    <option value="remote">Remote</option>
+                    <option value="all_models">On-site</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="from_salary"><b>Min. Annual Salary in USD</b> (optional):</label><br/>
+                <input type="number" min="1" max="3000000" name="from_salary" id="from_salary"/>
+            </td>
+            <td>
+                <label for="to_salary"><b>Max. Annual Salary in USD</b> (optional):</label><br/>
+                <input type="number" min="1" max="3000000" name="to_salary" id="to_salary"/>
+            </td>
+        </tr>
+        </table>
+        <br/>
+        <button type="submit" class="buttons2"><b>Search</b></button><br/>
+    </form>
+
+    {% else %}
+
+    <h2>Find Jobs</h2>
+
+    <p>Log in to your account and find your next fit!</p>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

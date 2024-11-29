@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="table_page">
+<h2>Notifications</h2>
+        {% if notifications %}
+            <table>
+                {% for notification in notifications %}
+                    {% if notification['status'] == 'unread' %}
+                        <tr id="notification_row"><td>{{ notification['timestamp'] }}</td><td><a class="bolded">{{ notification['title'] }}</a></td><td><a class="semi_bolded">{{ notification['message'] }}</a></td></tr>
+                    {% else %}
+                        <tr id="notification_row"><td>{{ notification['timestamp'] }}</td><td>{{ notification['title'] }}</td><td>{{ notification['message'] }}</td></tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No notifications available!</p>
+        {% endif %}
+</div>
+{% endblock %}

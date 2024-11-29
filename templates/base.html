@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHaven</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+</script>
+</head>
+<body>
+    <header>
+        <nav id="main_nav">
+            <a href="{{ url_for('home') }}"><img src="static/logo_small.png" id="header_logo" alt="Logo"/></a>
+            <a href="{{ url_for('home') }}"><button class="buttons">Home</button></a>
+            <a href="{{ url_for('jobs') }}"><button class="buttons">Jobs</button></a>
+            <a href="{{ url_for('about') }}"><button class="buttons">About</button></a>
+        </nav>
+        <nav id="user_nav">
+            {% if 'user' in session %}
+                <a href="{{ url_for('logout') }}" class="login_info" style="color:#0d157f;">Logout</a>
+                <span class="login_info">Hello, <div class="semi_bolded">{{ session['user_firstname'] }}!</div></span>
+                <div id="notifications_panel"><a href="{{ url_for('notifications') }}">
+                {% if session['unread_notifications'] == 0 %}
+                    <img src="static/notifications.png" class="buttons3" alt="Logo"/>
+                {% else %}
+                    <img src="static/pending_notifications.png" class="buttons3" alt="Logo"/><div id="num_of_notifications">{{ session['unread_notifications'] }}</div>
+                {% endif %}
+                
+                </a>
+                <a href="{{ url_for('my_profile') }}">
+                    <img src="static/my_profile.png" class="buttons3" alt="Logo" href="{{ url_for('my_profile') }}"/>
+                </a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="login_info"><div class="semi_bolded">Login</div></a>
+                <a href="{{ url_for('register') }}" class="login_info">Register</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main><br/><br/><br/>
+        {% block content %}{% endblock %}
+    </main>
+    <script>
+        function showLoader() {
+            document.getElementById('busyLoader').classList.add('active');
+        }
+
+        function hideLoader() {
+            document.getElementById('busyLoader').classList.remove('active');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            showLoader();
+        });
+        window.addEventListener('load', function() {
+            setTimeout(hideLoader, 800);
+        });
+
+        $(document).ready(function () {
+            // Add transition effect on page load
+            $("main").css("opacity", 0).animate({ opacity: 1 }, 300);
+        
+            // Add transition effect on navigation
+            $("a").on("click", function (e) {
+                var link = $(this).attr("href");
+                if (link && link[0] !== "#") { // Ignore anchor links
+                    e.preventDefault();
+                    $("main").animate({ opacity: 0 }, 300, function () {
+                        window.location.href = link;
+                    });
+                }
+            });
+        });
+    </script>
+    <footer>
+        <p>&copy; 2024 JobHaven</p>
+    </footer>
+        
+    <div class="loader-overlay" id="busyLoader">
+        <div class="loader"></div>
+    </div>
+</body>
+</html>

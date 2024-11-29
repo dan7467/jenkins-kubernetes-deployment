@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="table_page">
+    <h2>My Profile</h2>
+
+{% if 'user' in session %}
+<table>
+    <tr id="notification_row"><td class="table-header">Full name:</td>
+        <td>{{ user_info['full_name'] }}</td></tr>
+    <tr id="notification_row"><td class="table-header">E-mail:</td>
+        <td>{{ user_info['email'] }}</td></tr>
+    <tr id="notification_row"><td class="table-header">E-mail verified:</td>
+        <td>{{ user_info['email_verified'] }}</td></tr>
+    <tr id="notification_row"><td class="table-header">Country:</td>
+        <td>{{ user_info['country'] }}</td></tr>
+    <tr id="notification_row"><td class="table-header">Phone number:</td>
+        <td>{{ user_info['phone'] }}</td></tr>
+    <tr id="notification_row"><td class="table-header">CV:</td>
+    {% if user_info['cv'] %}
+        <td><br/><br/><a class="bolded">{{ user_cv }}</a>
+            <form method="post" enctype="multipart/form-data">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <input type="file" id="cv" name="cv" accept=".pdf,.docx">
+            <br/><br/>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <button type="submit" class="buttons2"><b>Submit</b>
+            </button></form></td></tr>
+    {% else %}
+        <td><br/><br/>No CV was uploaded!
+            <form method="post" enctype="multipart/form-data">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <input type="file" id="cv" name="cv" accept=".pdf,.docx">
+            <br/><br/>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <button type="submit" class="buttons2"><b>Submit</b>
+            </button></form></td></tr>
+
+    {% endif %}
+    
+<table>
+{% else %}
+<p>Log in now, to edit your profile!</p>
+{% endif %}
+</div>
+{% endblock %}

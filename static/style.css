@@ -1,0 +1,296 @@
+@font-face {
+    font-family: 'bt_bold';
+    src: url('/static/BalooTamma2-Bold.eot'); /* IE9 Compat Modes */
+    src: url('/static/BalooTamma2-Bold.woff') format('woff'), /* Modern Browsers */
+         url('/static/BalooTamma2-Bold.ttf')  format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'bt_reg';
+    src: url('/static/BalooTamma2-Regular.eot'); /* IE9 Compat Modes */
+    src: url('/static/BalooTamma2-Regular.woff') format('woff'), /* Modern Browsers */
+         url('/static/BalooTamma2-Regular.ttf')  format('truetype') /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'bt_sem_bold';
+    src: url('/static/BalooTamma2-SemiBold.eot'); /* IE9 Compat Modes */
+    src: url('/static/BalooTamma2-SemiBold.woff') format('woff'), /* Modern Browsers */
+         url('/static/BalooTamma2-SemiBold.ttf')  format('truetype') /* Safari, Android, iOS */
+}
+
+.semi_bolded {
+    font-family: bt_sem_bold;
+}
+
+.table-header {
+    font-family: bt_sem_bold;
+    max-width: 100px;
+}
+
+.bolded {
+    font-family: bt_bold;
+}
+
+.bolded_header {
+    font-family: bt_bold;
+    font-size: 22px;
+}
+
+body {
+    font-family: bt_reg;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #F8EDFF;
+    color: #081324;
+}
+
+header {
+    background: #525CEB;
+    color: #fff;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 20px;
+    width: 100%;
+    position: fixed;
+}
+
+.table_page {
+    text-align: center;
+}
+
+#job_prefs_table td{
+    text-align: center;
+}
+
+#job_results_table td{
+    text-align: center;
+}
+
+.table_page table {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 40%;
+}
+
+#notification_row {
+    min-width: 40%;
+}
+
+#job_row {
+    min-width: 40%;
+    min-width: 70%;
+}
+
+td, th {
+    border: 1px solid #BFCFE7;
+    text-align: left;
+    padding: 8px;
+}
+
+#header_logo {
+    position: relative;
+    top: 6px;
+}
+
+#main_nav {
+    display: flex;
+    align-items: center;
+}
+
+#main_nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px; 
+}
+
+#main_nav a:hover {
+    text-decoration: underline;
+}
+
+#user_nav {
+    display: flex;
+    align-items: center;
+    margin-right: 60px; 
+}
+
+#user_nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 30px; 
+}
+
+#user_nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 10px;
+}
+
+.login_info {
+    margin-right: 40px;
+}
+
+footer {
+    background: #525CEB;
+    color: #BFCFE7;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.buttons {
+    font-family: bt_sem_bold;
+    align-items: center;
+    background-color: #3D3B40;
+    border: 0;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    font-size: 15px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 20px;
+    max-width: 480px;
+    min-height: 40px;
+    min-width: 75px;
+    overflow: hidden;
+    padding: 5px 15px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+}
+
+.buttons:hover,
+.buttons:focus { 
+    background-color: #2a292c;
+    color: #ffffff;
+    transform:scale(1.07);
+    transition: 0.2s;
+}
+
+.buttons:active {
+    background: #1e1d1f;
+    color: rgb(255, 255, 255, .7);
+}
+
+.buttons:disabled { 
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, .08);
+    color: rgba(0, 0, 0, .3);
+}
+
+.buttons2 {
+    font-family: bt_sem_bold;
+    background-color: #3D3B40;
+    border: 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 400;
+    justify-content: center;
+    line-height: 20px;
+    max-width: 480px;
+    min-height: 25px;
+    min-width: 0px;
+    overflow: hidden;
+    padding: 5px 15px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+}
+
+.buttons2:hover,
+.buttons2:focus { 
+    background-color: #2a292c;
+    color: #ffffff;
+    transform:scale(1.07);
+    transition: 0.2s;
+}
+
+.buttons2:active {
+    background: #1e1d1f;
+    color: rgb(255, 255, 255, .7);
+}
+
+.buttons2:disabled { 
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, .08);
+    color: rgba(0, 0, 0, .3);
+}
+
+.buttons3:hover,
+.buttons3:focus { 
+    transform:scale(0.9);
+    transition: 0.2s;
+}
+
+.buttons3:active {
+    transform:scale(0.85);
+    transition: 0.2s;
+}
+
+#notifications_panel {
+    text-align: center;
+}
+
+#num_of_notifications {
+    position: absolute;
+    bottom: 12px;
+    height: 18px;
+    width: 18px;
+    background-color: rgb(206, 63, 63);
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #525CEB;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Light faded effect */
+    z-index: 9999; /* Ensure it appears above other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* Transparent by default */
+    transition: visibility 0s, opacity 0.5s ease-in-out; /* Smooth fade-in/out */
+}
+
+.loader-overlay.active {
+    visibility: visible;
+    opacity: 0.7;
+}

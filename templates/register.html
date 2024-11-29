@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center;">
+<h2>Register</h2>
+<form method="post" enctype="multipart/form-data">
+    <label for="email" class="semi_bolded">Email:</label><br/>
+    <input type="email" id="email" name="email" required><br/>
+    <label for="password" class="semi_bolded">Password:</label><br/>
+    <input type="password" id="password" name="password" required><br/>
+    <label for="full_name">Full Name:</label><br/>
+    <input type="text" id="full_name" name="full_name" required><br/><br/>
+    <label for="phone_number">Phone number and country:</label><br/>
+    <input type="text" id="phone_number" name="phone_number" required><br/>
+    <select name="country" id="country">
+        {% if countries %}
+            {% for code, country in countries.items() %}
+                <option value="{{code}} {{ country }}">{{ country }}</option>
+            {% endfor %}
+        {% else %}
+                <option value="US">US</option>
+        {% endif %}
+        </select><br/><br/>
+    <label for="cv"><a class="semi_bolded">Resumé</a> (PDF/DOCX):</label>
+    <input type="file" id="cv" name="cv" accept=".pdf,.docx"><br/><br/>
+    <input type="checkbox" id="contact_me" name="contact_me">Contact me about future job opportunities related to my CV<br/><br/>
+    <button type="submit" class="buttons2"><b>Register</b></button><br/>
+</form>
+</div>
+{% endblock %}

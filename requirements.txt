@@ -1,0 +1,6 @@
+Flask
+Werkzeug
+pymongo
+datetime
+country_list
+requests
