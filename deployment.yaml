@@ -19,6 +19,6 @@ spec:
       containers:
       - name: jobhaven-app #The name of application container
         #The Docker image for building the application container
-        image: nervous_wozniak/jobhaven-app:latest 
+        image: dan7467/jobhaven-app:latest 
         ports:
         - containerPort: 3000 #The port for the application container

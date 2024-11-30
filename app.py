@@ -6,6 +6,7 @@ from theirstackapi import get_payload
 import datetime
 from utils import parse_str_to_datetime, get_original_filename, get_user_from_db, refresh_notifications
 from country_list import countries_for_language
+from sys import argv
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages and session handling
