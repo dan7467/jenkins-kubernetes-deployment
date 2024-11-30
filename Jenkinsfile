@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        dockerimagename = 'nervous_wozniak/jobhaven-app'
+        dockerimagename = 'dan7467/jobhaven-app'
         dockerImage = ''
     }
     agent any
