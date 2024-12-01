@@ -134,6 +134,10 @@ main {
     margin-right: 40px;
 }
 
+.logout_info:hover {
+    font-family: bt_sem_bold;
+}
+
 footer {
     background: #525CEB;
     color: #BFCFE7;

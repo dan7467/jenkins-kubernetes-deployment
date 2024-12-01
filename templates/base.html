@@ -19,9 +19,9 @@
         </nav>
         <nav id="user_nav">
             {% if 'user' in session %}
-                <a href="{{ url_for('logout') }}" class="login_info" style="color:#0d157f;">Logout</a>
+                <a href="{{ url_for('logout') }}" class="logout_info" style="color:#0d157f;">Logout</a>
                 <span class="login_info">Hello, <div class="semi_bolded">{{ session['user_firstname'] }}!</div></span>
-                <div id="notifications_panel"><a href="{{ url_for('notifications') }}">
+                <div id="notifications_panel"><a href="{{ url_for('notifications') }}" style="text-decoration:none;">
                 {% if session['unread_notifications'] == 0 %}
                     <img src="static/notifications.png" class="buttons3" alt="Logo"/>
                 {% else %}

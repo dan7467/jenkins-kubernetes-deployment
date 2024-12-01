@@ -164,7 +164,7 @@ def register():
             original_filename = secure_filename(cv_file.filename)
             # Generate a unique filename if one already exists
             while True:
-                file_hash = hashlib.md5(f"{original_filename}{datetime.now()}".encode()).hexdigest()[:8]
+                file_hash = hashlib.md5(f"{original_filename}{datetime.datetime.now()}".encode()).hexdigest()[:8]
                 hashed_filename = f"{original_filename.rsplit('.', 1)[0]}_{file_hash}.{original_filename.rsplit('.', 1)[1]}"
                 file_path = os.path.join(app.config['UPLOAD_FOLDER'], hashed_filename)
                 if not os.path.exists(file_path):  # Ensure uniqueness
