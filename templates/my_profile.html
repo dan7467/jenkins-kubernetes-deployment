@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<head>
+    <title>My Profile | JobHaven</title>
+</head>
+
 <div class="table_page">
     <h2>My Profile</h2>
 
@@ -18,7 +22,7 @@
     <tr id="notification_row"><td class="table-header">Phone number:</td>
         <td>{{ user_info['phone'] }}</td></tr>
     <tr id="notification_row"><td class="table-header">CV:</td>
-    {% if user_info['cv'] %}
+    {% if user_info['cv'] != '' %}
         <td><br/><br/><a class="bolded">{{ user_cv }}</a>
             <form method="post" enctype="multipart/form-data">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
             <input type="file" id="cv" name="cv" accept=".pdf,.docx">

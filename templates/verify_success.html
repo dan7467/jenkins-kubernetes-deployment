@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <title>Email Verified! | JobHaven</title>
+</head>
+<body>
+    <div style="text-align: center; font-family: Arial, sans-serif; margin-top: 50px;">
+
+        {% if full_name %}
+            <h1>Way to go, {{full_name}}.</h1>
+        {% else %}
+            <h1>Way to go.</h1>
+        {% endif %}
+
+        <p class="semi_bolded">Email Verified Successfully!</p><br/>
+        <p>Thank you for verifying your email address. You can now enjoy our services.</p><br/>
+        <a href="/" style="color: #007bff; text-decoration: none;">Back to Home page</a>
+    </div>
+</body>
+{% endblock %}

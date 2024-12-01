@@ -2,3 +2,4 @@
 uploads/
 /theirstackapi.py
 /db_connection.py
+/mailjet_connection.py

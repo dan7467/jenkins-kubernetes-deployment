@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <title>Verify mail | JobHaven</title>
+</head>
+<div style="text-align: center;">
+<h2>Verify your mail</h2>
+<form method="post">
+    <label for="email">Email:</label><br/>
+    <input type="email" id="email" name="email" maxlength="32" required><br/>
+    <label for="password">Password:</label><br/>
+    <input type="password" id="password" name="password" maxlength="32" required><br/><br/>
+    <label for="secret_code">Code (sent to you by mail):</label><br/>
+    <input type="text" id="secret_code" maxlength="6" name="secret_code" required><br/><br/>
+    <button type="submit" class="buttons2"><b>Verify</b></button><br/>
+</form>
+</div>
+{% endblock %}

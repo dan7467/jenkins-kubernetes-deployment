@@ -7,18 +7,22 @@ import datetime
 from utils import parse_str_to_datetime, get_original_filename, get_user_from_db, refresh_notifications
 from country_list import countries_for_language
 from sys import argv
+from bcrypt import hashpw, checkpw, gensalt
+from base64 import urlsafe_b64decode
+import async_context_manager
+import mailjet_connection
+import random
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages and session handling
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2MB max file size
-
+app.config['ENV_PROD'] = True 
 
 @app.route('/')
 def home():
     refresh_notifications(session)
     return render_template('home.html')
-
 
 @app.route('/jobs', methods=['GET', 'POST'])
 def jobs():
@@ -41,6 +45,11 @@ def jobs():
 def about():
     refresh_notifications(session)
     return render_template('about.html')
+
+@app.route('/error')
+def error():
+    refresh_notifications(session)
+    return render_template('error.html')
 
 
 @app.route('/logout')
@@ -111,9 +120,9 @@ def login():
         email = request.form['email']
         password = request.form['password']
         
-        # Check Redis for user
+        # Check mongo for user and verify the plain password against the decoded hash
         user = get_user_from_db(email)
-        if user == -1 or user['password'] != password:
+        if user == -1 or not checkpw(password.encode('utf-8'), user['hashed_pw']):
             flash('Invalid email or password!', 'error')
             time.sleep(2)
             return redirect(url_for('login'))  # TO-DO: Handle case where login is unsuccessful - raise messageBox
@@ -128,7 +137,7 @@ def login():
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
+async def register():
     if request.method == 'POST':
         full_name = request.form['full_name']
         email = request.form['email']
@@ -180,17 +189,24 @@ def register():
         
         # TO-DO: Support dark mode
         
+        hashed_username = hashlib.md5(email.encode()).hexdigest()
+        hashed_pw = hashpw(password.encode('utf-8'), gensalt())
+        verification_code = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+        
         user_data = {
             "full_name": full_name,
             "email": email,
             "email_verified": "No",
-            "password": password,
+            "verification_code": verification_code,
             "cv": cv_filename or "",
             "phone": phone_num,
             "country": country,
             "country_code": country_code,
-            "contact_for_future_jobs": contact_for_future_jobs
+            "contact_for_future_jobs": contact_for_future_jobs,
+            "hashed_username": hashed_username,
+            "hashed_pw": hashed_pw
         }
+        
         db["users"].update_one({"email": email}, {"$set": user_data}, upsert=True)
         
         if cv_filename == None:
@@ -198,10 +214,50 @@ def register():
         
         add_notification(email, "Complete your profile", "Please verify your email address!")
         
+        if app.config['ENV_PROD']: # only on prod - send verification mail
+            async with async_context_manager.Context() as context:
+                res = mailjet_connection.send_verification_mail(email, full_name, list(verification_code))
+            if 'Messages' in res and len(res['Messages']) > 0 and 'Status' in res['Messages'][0] and res['Messages'][0]['Status'] != 'success':
+                for msg in res['Messages']:
+                    db["Email_Error_Log"].update_one({"_id": datetime.datetime.now().strftime("%H:%M, %d.%m.%y")}, {"$set": msg}, upsert=True)
+        
         flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('verify_email'))
 
     return render_template('register.html', countries = dict(countries_for_language('en')) )
+
+@app.route('/verify-email', methods=['GET', 'POST'])
+def verify_email():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        code = request.form['secret_code']
+        
+        # Check db for user and verify the plain password against the decoded hash
+        user = get_user_from_db(email)
+        if user == -1 or not checkpw(password.encode('utf-8'), user['hashed_pw']) or user['verification_code'] != code:
+            flash('Invalid email, password, or code!', 'error')
+            time.sleep(2)
+            return redirect(url_for('login'))  # TO-DO: Handle case where login is unsuccessful - raise messageBox
+
+        # Successful login
+        session['user'] = email
+        session['user_firstname'] = user['full_name'].split(' ')[0]
+        flash(f'Welcome back, {user['full_name']}!', 'success')
+        time.sleep(2)
+    
+        if user.get("email_verified") == "No":
+                
+                db['users'].update_one(
+                    {"email": user["email"]},
+                    {"$set": {"email_verified": "Yes"}}
+                )
+                
+        add_notification(user["email"], "E-mail Verified!", "You are successfully verified.")
+                
+        return render_template("verify_success.html", full_name = user["full_name"])
+
+    return render_template('verify_mail.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
