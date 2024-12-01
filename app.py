@@ -18,6 +18,7 @@ app.secret_key = 'your_secret_key'  # Needed for flash messages and session hand
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # 2MB max file size
 app.config['ENV_PROD'] = True 
+# TO-DO: switch all '..._connection.py' files to work with environment variables
 
 @app.route('/')
 def home():
@@ -103,7 +104,7 @@ def add_notification(user_email, title, message):
     notifications_collection = db['notifications']
     notification = {
         "user_id": user_email,
-        "timestamp": datetime.datetime.now().strftime("%H:%M, %d.%m.%y"),
+        "timestamp": datetime.datetime.now().strftime("%H:%M:%S, %d.%m.%y"),
         "title": title,
         "message": message,
         "status": "unread"
@@ -219,13 +220,15 @@ async def register():
                 res = mailjet_connection.send_verification_mail(email, full_name, list(verification_code))
             if 'Messages' in res and len(res['Messages']) > 0 and 'Status' in res['Messages'][0] and res['Messages'][0]['Status'] != 'success':
                 for msg in res['Messages']:
-                    db["Email_Error_Log"].update_one({"_id": datetime.datetime.now().strftime("%H:%M, %d.%m.%y")}, {"$set": msg}, upsert=True)
+                    db["Email_Error_Log"].update_one({"_id": datetime.datetime.now().strftime("%H:%M:%S, %d.%m.%y")}, {"$set": msg}, upsert=True)
         
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('verify_email'))
 
     return render_template('register.html', countries = dict(countries_for_language('en')) )
 
+# TO-DO: if not already verified - add option to verify mail from MyProfile
+# TO-DO: Resend code functionality
 @app.route('/verify-email', methods=['GET', 'POST'])
 def verify_email():
     if request.method == 'POST':

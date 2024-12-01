@@ -18,7 +18,7 @@ def parse_str_to_datetime(x):
     while x[i] == ' ':
         i -= 1
     i += 1
-    return datetime.strptime(x[:i], "%H:%M, %d.%m.%y")
+    return datetime.strptime(x[:i], "%H:%M:%S, %d.%m.%y")
 
 
 def get_original_filename(hashed_filename):  # To extract original filename without the hash
