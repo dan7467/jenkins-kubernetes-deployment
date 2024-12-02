@@ -23,13 +23,13 @@
     font-family: bt_sem_bold;
 }
 
+.bolded {
+    font-family: bt_bold;
+}
+
 .table-header {
     font-family: bt_sem_bold;
     max-width: 100px;
-}
-
-.bolded {
-    font-family: bt_bold;
 }
 
 .bolded_header {

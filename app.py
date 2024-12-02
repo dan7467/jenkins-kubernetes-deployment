@@ -228,6 +228,7 @@ async def register():
     return render_template('register.html', countries = dict(countries_for_language('en')) )
 
 # TO-DO: if not already verified - add option to verify mail from MyProfile
+# TO-DO: add option to see and set 'recruiters can contact me' property from MyProfile
 # TO-DO: Resend code functionality
 @app.route('/verify-email', methods=['GET', 'POST'])
 def verify_email():

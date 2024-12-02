@@ -1,5 +1,2 @@
 # TO-DO: create a new repo with this gitignore, the current one is private due to this file uploaded there
 uploads/
-/theirstackapi.py
-/db_connection.py
-/mailjet_connection.py
