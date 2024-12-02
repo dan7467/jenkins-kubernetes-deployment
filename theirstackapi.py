@@ -1,5 +1,5 @@
 import requests
-from tokens_handler import get_credentials
+from secret_handler import get_credentials
 
 url = "https://api.theirstack.com/v1/jobs/search"
 

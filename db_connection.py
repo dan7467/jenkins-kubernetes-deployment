@@ -8,7 +8,7 @@
 # )
 
 from pymongo import MongoClient
-from tokens_handler import get_credentials
+from secret_handler import get_credentials
 
 credentials = get_credentials('mongo')
 

@@ -1,7 +1,7 @@
 from mailjet_rest import Client
 from hashlib import md5
 from bcrypt import hashpw
-from tokens_handler import get_credentials
+from secret_handler import get_credentials
 
 credentials = get_credentials('mailjet')
 client = Client(auth=(credentials['api_key'], credentials['secret_key']), version='v3.1')
